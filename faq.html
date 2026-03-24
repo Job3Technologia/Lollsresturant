@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 16px;">Support Center</span>
+            <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 24px; letter-spacing: -1.5px;">Frequently Asked <span style="color: var(--accent-orange);">Questions</span></h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Everything you need to know about Durban's most authentic food experience.</p>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+            <div class="glass-panel" style="padding: 32px; cursor: pointer;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    Is your food 100% Halal? <i class="fas fa-plus" style="font-size: 0.9rem; color: var(--accent-orange);"></i>
+                </h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">Yes, Lolly's Food Joint is fully Halal certified. We source our ingredients from strictly Halal-compliant suppliers and maintain the highest standards of preparation.</p>
+            </div>
+
+            <div class="glass-panel" style="padding: 32px; cursor: pointer;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    How long does preparation take? <i class="fas fa-plus" style="font-size: 0.9rem; color: var(--accent-orange);"></i>
+                </h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">Most orders are ready for collection within 15-20 minutes. During peak Durban lunch hours, it may take up to 30 minutes. You'll receive a notification when your meal is ready.</p>
+            </div>
+
+            <div class="glass-panel" style="padding: 32px; cursor: pointer;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    Do you offer delivery? <i class="fas fa-plus" style="font-size: 0.9rem; color: var(--accent-orange);"></i>
+                </h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">We currently focus on collection orders via our website to ensure maximum freshness. However, you can find us on major third-party delivery apps in the Durban area.</p>
+            </div>
+
+            <div class="glass-panel" style="padding: 32px; cursor: pointer;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    Can I pay with my Lolly's Wallet? <i class="fas fa-plus" style="font-size: 0.9rem; color: var(--accent-orange);"></i>
+                </h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">Absolutely! You can top up your wallet via your Client Hub and use the balance for instant, secure payments at checkout.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 80px;">
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Still have questions?</p>
+            <a href="contact.html" class="btn btn-primary">Contact Support</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2026 Lolly's Food Joint. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function toggleFaq(element) {
+            const content = element.querySelector('.faq-content');
+            const icon = element.querySelector('.fa-chevron-down');
+            
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close other open FAQs
+                document.querySelectorAll('.faq-content').forEach(el => el.style.maxHeight = '0px');
+                document.querySelectorAll('.fa-chevron-down').forEach(el => el.style.transform = 'rotate(0deg)');
+                
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body>
+</html>

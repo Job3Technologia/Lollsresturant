@@ -1,0 +1,253 @@
+:root {
+    --glow-primary: rgba(249, 115, 22, 0.4);
+    --glow-success: rgba(16, 185, 129, 0.4);
+    --mobile-nav-height: 72px;
+}
+
+/* Professional Mind-Blowing Mobile Overhaul */
+
+@media screen and (max-width: 768px) {
+    /* Layout & Container */
+    .container {
+        padding: 0 20px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Fixed Navbar for Mobile */
+    .navbar {
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        padding: 8px 16px;
+        height: 64px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .navbar h1 {
+        font-size: 0.9rem;
+        white-space: nowrap;
+        margin-left: 8px;
+    }
+
+    .navbar .logo img {
+        height: 32px;
+        width: 32px;
+    }
+
+    .uber-eats-badge {
+        display: none; /* Hide on small mobile headers to save space */
+    }
+
+    /* Adjust main content for fixed navbar */
+    body {
+        padding-top: 64px;
+    }
+
+    .hero {
+        min-height: calc(100vh - 64px) !important;
+        padding-top: 40px !important;
+    }
+
+    .hero h2 {
+        font-size: 2.2rem !important;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 0.95rem !important;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 16px;
+    }
+
+    /* Mobile Menu Overlay */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        height: 100vh;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 3000;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+    }
+
+    .nav-links.nav-active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+        font-weight: 800;
+    }
+
+    .burger {
+        display: block;
+        z-index: 3100;
+        font-size: 1.5rem;
+        transition: var(--transition-smooth);
+    }
+
+    .burger.toggle {
+        color: var(--accent-orange);
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cube-card img {
+        height: 120px;
+    }
+
+    .cube-card .info {
+        padding: 12px;
+    }
+
+    .cube-card h3 {
+        font-size: 0.85rem;
+    }
+
+    .cube-card .price {
+        font-size: 0.95rem;
+    }
+
+    .cube-card .btn-add {
+        padding: 8px;
+        font-size: 0.75rem;
+    }
+
+    /* Dashboard & Profile - Mobile Alignment */
+    .grid-2, .grid-3 {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    section {
+        padding: 100px 0 60px !important;
+    }
+
+    aside {
+        position: static !important;
+        width: 100% !important;
+    }
+
+    .glass-panel {
+        padding: 24px !important;
+        border-radius: 24px !important;
+    }
+
+    /* Form Fields for Mobile */
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Cart & Checkout */
+    #cart-content, #checkout-form {
+        grid-template-columns: 1fr !important;
+    }
+
+    #cart-summary, #checkout-summary {
+        position: static !important;
+        width: 100% !important;
+        margin-top: 24px;
+    }
+
+    .cart-item {
+        padding: 16px !important;
+        gap: 12px !important;
+    }
+
+    .cart-item i {
+        font-size: 1rem !important;
+    }
+}
+
+/* Touch Interactive "Glow-on-Touch" Effects */
+/* These effects correspond with the background and activate on hover/touch */
+
+.cube-card, .btn, .glass-panel, .feature-card, .stat-card {
+    transition: var(--transition-smooth);
+    position: relative;
+    outline: none;
+}
+
+/* Professional Glow Effect */
+.cube-card:active, .cube-card:hover {
+    box-shadow: 0 0 20px var(--glow-primary), var(--shadow-premium);
+    border-color: var(--accent-orange);
+    transform: scale(1.02);
+}
+
+.btn-primary:active, .btn-primary:hover {
+    box-shadow: 0 0 25px var(--glow-primary), 0 20px 40px -8px rgba(249, 115, 22, 0.45);
+    transform: translateY(-4px) scale(1.02);
+}
+
+.btn-secondary:active, .btn-secondary:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    border-color: var(--accent-orange);
+}
+
+.glass-panel:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05), var(--shadow-lg);
+}
+
+/* Status Ready Glow */
+.status-ready {
+    box-shadow: 0 0 10px var(--glow-success);
+}
+
+/* Interactive Background Sync */
+.cube-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, var(--glow-primary) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cube-card:active::after {
+    opacity: 0.2;
+}
+
+/* Mobile Scrollbar Cleanliness */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}

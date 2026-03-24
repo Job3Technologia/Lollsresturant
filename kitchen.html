@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Display | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body style="background: var(--secondary-white); padding: 40px;">
+    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="Images/lollys logo.jpg" alt="Lolly's Logo" style="height: 60px; border-radius: 12px;">
+            <div>
+                <h1 style="color: var(--accent-orange); font-size: 2.2rem; font-weight: 900;"><i class="fas fa-fire"></i> KITCHEN DISPLAY</h1>
+                <p style="color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Live Production Queue</p>
+            </div>
+        </div>
+        <div id="kitchen-time" style="font-size: 1.8rem; font-weight: 800; background: white; padding: 12px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #F3F4F6;">12:00 PM</div>
+    </header>
+
+    <div id="load-alert" style="margin-bottom: 30px; display: none;">
+        <!-- Alerts will be shown here -->
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; min-height: 70vh;">
+        <!-- Preparing Section -->
+        <section class="glass-panel" style="padding: 32px; background: white; border-top: 8px solid var(--accent-orange);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <h2 style="font-size: 1.8rem; font-weight: 900; letter-spacing: -1px;"><i class="fas fa-utensils" style="color: var(--accent-orange);"></i> PREPARING <span id="prep-count" style="font-size: 1rem; background: #f1f5f9; padding: 4px 12px; border-radius: 50px; margin-left: 10px; vertical-align: middle;">0</span></h2>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Active Kitchen Queue</span>
+            </div>
+            <div id="preparing-grid" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Preparing orders loaded here -->
+            </div>
+        </section>
+
+        <!-- Ready for Collection Section -->
+        <section class="glass-panel" style="padding: 32px; background: white; border-top: 8px solid var(--success);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <h2 style="font-size: 1.8rem; font-weight: 900; letter-spacing: -1px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> READY FOR COLLECTION <span id="ready-count" style="font-size: 1rem; background: #f1f5f9; padding: 4px 12px; border-radius: 50px; margin-left: 10px; vertical-align: middle;">0</span></h2>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Awaiting Customer</span>
+            </div>
+            <div id="ready-grid" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Ready orders loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        async function loadKitchenQueue() {
+            try {
+                const response = await api.get('/kitchen/queue');
+                const queue = response.queue;
+                const loadStatus = response.loadStatus;
+
+                // Handle load alerts
+                const alertBox = document.getElementById('load-alert');
+                if (loadStatus.level !== 'Normal') {
+                    alertBox.style.display = 'block';
+                    alertBox.innerHTML = `
+                        <div class="card glass-panel" style="background: ${loadStatus.level === 'Critical' ? '#FEE2E2' : '#FEF3C7'}; border-left: 10px solid ${loadStatus.level === 'Critical' ? '#EF4444' : '#F59E0B'}; padding: 20px;">
+                            <h3 style="color: ${loadStatus.level === 'Critical' ? '#991B1B' : '#92400E'};">
+                                <i class="fas fa-exclamation-triangle"></i> KITCHEN ${loadStatus.level.toUpperCase()}
+                            </h3>
+                            <p style="font-weight: 600;">${loadStatus.message}</p>
+                        </div>
+                    `;
+                } else {
+                    alertBox.style.display = 'none';
+                }
+
+                const prepGrid = document.getElementById('preparing-grid');
+                const readyGrid = document.getElementById('ready-grid');
+                prepGrid.innerHTML = '';
+                readyGrid.innerHTML = '';
+
+                let prepCount = 0;
+                let readyCount = 0;
+
+                queue.forEach(order => {
+                    const timeDiff = Math.floor((new Date() - new Date(order.created_at)) / 60000);
+                    const urgencyColor = timeDiff > 20 ? '#ef4444' : (timeDiff > 10 ? '#f59e0b' : '#3b82f6');
+                    
+                    const orderHtml = `
+                        <div class="card" style="padding: 24px; border: 1px solid #f1f5f9; box-shadow: var(--shadow-sm); border-left: 6px solid ${urgencyColor}; transition: var(--transition-smooth);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                                <div>
+                                    <h3 style="color: var(--text-dark); font-weight: 900; font-size: 1.5rem; letter-spacing: -1px;">#${order.order_number.slice(-4)}</h3>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">${order.customer_name || 'Customer'}</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span style="font-weight: 800; font-size: 1.1rem; color: ${urgencyColor};">${timeDiff}m</span>
+                                    <p style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600;">In Queue</p>
+                                </div>
+                            </div>
+                            <div style="font-size: 1.1rem; margin-bottom: 24px; font-weight: 600; color: var(--text-dark); background: #f8fafc; padding: 16px; border-radius: 12px;">
+                                ${order.items_summary.split(', ').map(i => `<div style="margin-bottom: 4px;"><i class="fas fa-dot-circle" style="font-size: 0.6rem; color: var(--accent-orange); margin-right: 8px;"></i> ${i}</div>`).join('')}
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                ${order.status === 'Received' ? 
+                                    `<button class="btn btn-primary" style="flex: 1; padding: 14px;" onclick="updateStatus(${order.id}, 'Preparing')">Start Cooking <i class="fas fa-fire" style="margin-left: 8px;"></i></button>` :
+                                    order.status === 'Preparing' ?
+                                    `<button class="btn btn-primary" style="flex: 1; background: var(--success); border: none; padding: 14px;" onclick="updateStatus(${order.id}, 'Ready')">Mark Ready <i class="fas fa-check" style="margin-left: 8px;"></i></button>` :
+                                    `<button class="btn btn-secondary" style="flex: 1; padding: 14px; border-color: var(--success); color: var(--success);" onclick="updateStatus(${order.id}, 'Collected')">Confirm Collected <i class="fas fa-shopping-bag" style="margin-left: 8px;"></i></button>`
+                                }
+                            </div>
+                        </div>
+                    `;
+
+                    if (order.status === 'Received' || order.status === 'Preparing') {
+                        prepGrid.innerHTML += orderHtml;
+                        prepCount++;
+                    } else if (order.status === 'Ready') {
+                        readyGrid.innerHTML += orderHtml;
+                        readyCount++;
+                    }
+                });
+
+                document.getElementById('prep-count').textContent = prepCount;
+                document.getElementById('ready-count').textContent = readyCount;
+
+            } catch(e) { console.error('Kitchen fetch failed', e); }
+        }
+
+        async function updateStatus(id, status) {
+            await api.post('/kitchen/status', { order_id: id, status: status });
+            loadKitchenQueue();
+        }
+
+        setInterval(loadKitchenQueue, 10000);
+        loadKitchenQueue();
+
+        setInterval(() => {
+            document.getElementById('kitchen-time').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }, 1000);
+    </script>
+</body>
+</html>

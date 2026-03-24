@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="height: 50vh; display: flex; align-items: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../chicken.jpg'); background-size: cover; background-position: center;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; margin-bottom: 20px; color: white;">Get in <span style="color: var(--accent-orange);">Touch</span></h1>
+            <p style="font-size: 1.2rem; color: #f3f4f6;">We'd love to hear from you. Reach out for orders, feedback, or catering.</p>
+        </div>
+    </header>
+
+    <section class="container" style="padding: 100px 20px;">
+        <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+            <div>
+                <h2 style="margin-bottom: 30px;">Contact Information</h2>
+                <div class="contact-info-item" style="margin-bottom: 30px; display: flex; gap: 20px;">
+                    <div class="icon-box" style="width: 50px; height: 50px; background: rgba(249, 115, 22, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--accent-orange); font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Visit Us</h4>
+                        <p style="color: var(--text-muted);">537 Anton Lembede St<br>Durban Central, 4001</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info-item" style="margin-bottom: 30px; display: flex; gap: 20px;">
+                    <div class="icon-box" style="width: 50px; height: 50px; background: rgba(249, 115, 22, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-phone-alt" style="color: var(--accent-orange); font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Call Us</h4>
+                        <p style="color: var(--text-muted);">083 353 2775</p>
+                        <p style="font-size: 0.9rem; color: var(--success);">Available for WhatsApp Orders</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item" style="margin-bottom: 30px; display: flex; gap: 20px;">
+                    <div class="icon-box" style="width: 50px; height: 50px; background: rgba(249, 115, 22, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-envelope" style="color: var(--accent-orange); font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Email Us</h4>
+                        <p style="color: var(--text-muted);">orders@lollys.co.za</p>
+                        <p style="color: var(--text-muted);">info@lollys.co.za</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item" style="margin-bottom: 30px; display: flex; gap: 20px;">
+                    <div class="icon-box" style="width: 50px; height: 50px; background: rgba(249, 115, 22, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-clock" style="color: var(--accent-orange); font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Opening Hours</h4>
+                        <p style="color: var(--text-muted);">Monday - Saturday: 8:00 AM - 8:00 PM</p>
+                        <p style="color: var(--text-muted);">Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card glass-panel" style="padding: 40px;">
+                <h3 style="margin-bottom: 20px;">Send a Message</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" class="form-control" required placeholder="John Doe" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" required placeholder="john@example.com" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Subject</label>
+                        <select class="form-control" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                            <option>General Inquiry</option>
+                            <option>Catering Request</option>
+                            <option>Feedback / Complaint</option>
+                            <option>Job Application</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="5" required placeholder="How can we help you?" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section style="height: 400px; width: 100%;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.123456789!2d31.02!3d-29.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDUxJzAwLjAiUyAzMcKwMDEnMTIuMCJF!5e0!3m2!1sen!2sza!4v1600000000000!5m2!1sen!2sza" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2026 Lolly's Food Joint. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you shortly.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

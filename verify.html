@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 150px 0; display: flex; justify-content: center;">
+        <div class="card glass-panel" style="width: 100%; max-width: 450px; padding: 48px; text-align: center;">
+            <div class="icon-box" style="width: 80px; height: 80px; background: rgba(249, 115, 22, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;">
+                <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: var(--accent-orange);"></i>
+            </div>
+            <h2 style="margin-bottom: 10px;">Check Your Email</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">We sent a 6-digit code to <br><strong id="display-email">name@example.com</strong></p>
+            
+            <form id="verify-form">
+                <div class="form-group">
+                    <input type="text" id="verify-code" maxlength="6" required 
+                           style="font-size: 2rem; text-align: center; letter-spacing: 10px; font-weight: 700; padding: 20px;" 
+                           placeholder="000000">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Verify Account <i class="fas fa-check-circle"></i></button>
+            </form>
+            
+            <div style="margin-top: 30px; text-align: center; font-size: 0.9rem;">
+                Didn't receive a code? <a href="#" style="color: var(--accent-orange); font-weight: 600;">Resend Code</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        const email = sessionStorage.getItem('verify_email');
+        if (!email) window.location.href = 'register.html';
+        document.getElementById('display-email').textContent = email;
+
+        document.getElementById('verify-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const code = document.getElementById('verify-code').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/verify-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, code })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Account verified successfully!');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Verification failed');
+                }
+            } catch (err) {
+                alert('Connection failed. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

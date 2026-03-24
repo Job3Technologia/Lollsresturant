@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management Demo | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="kds-body">
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" style="background: #1e293b; color: white;">
+            <div style="padding: 30px;">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo" style="height: 50px; border-radius: 8px;">
+                <h2 style="font-size: 1rem; margin-top: 15px; color: var(--accent-orange);">Meluleki (Admin)</h2>
+                <p style="font-size: 0.7rem; opacity: 0.6;">Executive Access</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admindemo.html" style="color: rgba(255,255,255,0.6);"><i class="fas fa-th-large"></i> Overview</a></li>
+                <li><a href="ordersdemo.html" class="active" style="color: white;"><i class="fas fa-shopping-bag"></i> Orders (150)</a></li>
+                <li><a href="crmdemo.html" style="color: rgba(255,255,255,0.6);"><i class="fas fa-users"></i> CRM (39 Clients)</a></li>
+                <li><a href="kitchendemo.html" style="color: rgba(255,255,255,0.6);"><i class="fas fa-fire"></i> Live Kitchen</a></li>
+                <li><a href="analyticsdemo.html" style="color: rgba(255,255,255,0.6);"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="settingdemo.html" style="color: rgba(255,255,255,0.6);"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+            <div style="margin-top: auto; padding: 30px;">
+                <a href="index.html" class="btn btn-secondary" style="width: 100%; color: #ef4444; border-color: #ef4444;">Exit Meluleki Admin</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main" style="background: #f8fafc; padding: 40px;">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <div>
+                    <h1 style="font-size: 2rem; font-weight: 900; letter-spacing: -1px;">Order Management</h1>
+                    <p style="color: var(--text-muted);">Processing 150 transaction history entries</p>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div style="background: white; padding: 10px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: #10b981;">ONLINE</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="data-table-container" style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3 style="font-weight: 800;">All Transactions</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-sm btn-secondary">Filter</button>
+                        <button class="btn btn-sm btn-secondary">Export CSV</button>
+                    </div>
+                </div>
+                <div id="orders-list-container" style="max-height: 650px; overflow-y: auto;">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const customers = ['Meluleki', 'John Doe', 'Jane Smith', 'Thabo Mokoena', 'Sarah Zulu', 'David Miller', 'Chris Evans', 'Lollys User', 'Michael Brown', 'Emily Davis', 'Daniel Wilson', 'Jessica Taylor', 'Andrew Moore', 'Sibusiso Khoza', 'Zanele Gumede', 'Bongani Nkosi', 'Nompumelelo Cele', 'Thulani Buthelezi', 'Ayanda Dlamini', 'Nomusa Mkhize', 'Sipho Zuma', 'Phumzile Ndlovu', 'Lindani Myeni', 'Thandiwe Mthembu', 'Mandla Zungu', 'Nkosana Shabalala', 'Zandile Gumbi', 'Lunga Ngcobo', 'Ntombi Madlala', 'Sabelo Mabaso', 'Nonhlanhla Mbatha', 'Vusi Khumalo', 'Zodwa Sibiya', 'Jabulani Ntuli', 'Nelly Radebe', 'Prince Kunene', 'Busi Sithole', 'Themba Vilakazi', 'Lerato Moloi'];
+        const statuses = ['Collected', 'Preparing', 'Ready', 'Cancelled', 'Received'];
+        const items = ['Beef Curry', 'Chicken Curry', 'Kota 4', 'Zulu Burger Combo', 'Gwinya Combo'];
+
+        const container = document.getElementById('orders-list-container');
+        let html = '<table style="width: 100%; border-collapse: collapse;">';
+        html += '<thead style="text-align: left; background: #f8fafc; position: sticky; top: 0;"><tr><th style="padding: 15px;">Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody>';
+
+        for(let i=150; i>=1; i--) {
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            const customer = customers[Math.floor(Math.random() * customers.length)];
+            const item = items[Math.floor(Math.random() * items.length)];
+            const amount = (Math.random() * 200 + 50).toFixed(2);
+            
+            html += `<tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 15px; font-weight: 700;">#LOLLY-${2026}${i.toString().padStart(4, '0')}</td>
+                <td>${customer}</td>
+                <td style="font-size: 0.8rem; color: var(--text-muted);">1x ${item}</td>
+                <td style="font-weight: 600;">R${amount}</td>
+                <td><span class="status-badge status-${status.toLowerCase()}" style="font-size: 0.6rem; padding: 4px 10px;">${status}</span></td>
+                <td><button class="btn btn-secondary btn-sm" style="font-size: 0.7rem; padding: 5px 10px;">View</button></td>
+            </tr>`;
+        }
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    </script>
+</body>
+</html>

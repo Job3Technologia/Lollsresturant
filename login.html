@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 220px 0 100px; display: flex; justify-content: center;">
+        <div class="glass-panel" style="width: 100%; max-width: 480px; padding: 64px;">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; display: block; margin-bottom: 12px;">Secure Access</span>
+                <h2 style="font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px;">Welcome <span style="color: var(--accent-orange);">Back</span></h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Login to access your Durban culinary journey.</p>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" required placeholder="e.g. john@lollys.co.za">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter your password">
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+                        <input type="checkbox" style="width: auto; height: auto;"> Remember me
+                    </label>
+                    <a href="forgot-password.html" style="color: var(--accent-orange); font-weight: 700; font-size: 0.85rem;">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px;">Sign In <i class="fas fa-sign-in-alt" style="margin-left: 8px;"></i></button>
+                
+                <div style="margin-top: 32px; padding: 20px; background: #FFF7ED; border: 1px dashed var(--accent-orange); border-radius: 16px; font-size: 0.8rem; color: var(--text-dark); text-align: center; line-height: 1.6;">
+                    <p style="margin-bottom: 8px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">Authorized Accounts</p>
+                    <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(249, 115, 22, 0.1);">
+                        <strong style="display: block; color: var(--accent-orange);">Standard User:</strong>
+                        user@lollys.co.za / password123
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--accent-orange);">Meluleki:</strong>
+                        Meluleki@Digitalcommercesolutions.com / Woke49today
+                    </div>
+                </div>
+            </form>
+            
+            <div style="margin-top: 40px; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="register.html" style="color: var(--accent-orange); font-weight: 800;">Sign Up Now</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // TEMPORARY BYPASS: Hardcoded credentials for demo purposes
+            const demoUsers = [
+                { email: 'user@lollys.co.za', password: 'password123', name: 'Demo Customer' },
+                { email: 'Meluleki@Digitalcommercesolutions.com', password: 'Woke49today', name: 'Meluleki' }
+            ];
+
+            const demoUser = demoUsers.find(u => u.email === email && u.password === password);
+
+            if (demoUser) {
+                console.log('Bypassing API for demo login');
+                const userObj = {
+                    id: demoUser.email === 'Meluleki@Digitalcommercesolutions.com' ? 1000 : 1,
+                    name: demoUser.name,
+                    email: demoUser.email,
+                    phone: '0830000000'
+                };
+                localStorage.setItem('lollys_token', 'demo_token_12345');
+                localStorage.setItem('lollys_user', JSON.stringify(userObj));
+                
+                // Redirect Meluleki to his specific demo dashboard
+                if (demoUser.email === 'Meluleki@Digitalcommercesolutions.com') {
+                    window.location.href = 'customer-dashboarddemo.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('lollys_token', data.token);
+                    localStorage.setItem('lollys_user', JSON.stringify(data.customer));
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (err) {
+                // If connection fails, still show the bypass option if credentials match
+                alert('Connection failed, but you can use the demo credentials provided below to log in.');
+            }
+        });
+    </script>
+</body>
+</html>

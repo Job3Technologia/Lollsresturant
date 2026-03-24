@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Display System (KDS) | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        :root {
+            --kds-bg: #0f172a;
+            --kds-card-bg: #1e293b;
+            --kds-text: #f1f5f9;
+            --kds-accent: #f97316;
+            --status-received: #3b82f6;
+            --status-preparing: #f59e0b;
+            --status-ready: #10b981;
+        }
+
+        body.kds-body {
+            background-color: var(--kds-bg);
+            color: var(--kds-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .kds-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .kds-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--kds-accent);
+            letter-spacing: -1px;
+        }
+
+        .kds-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .kds-stat-item {
+            background: var(--kds-card-bg);
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .kds-stat-value {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--kds-accent);
+        }
+
+        .kds-stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .kds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .kds-card {
+            background: var(--kds-card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .kds-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .kds-card-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .order-num {
+            font-weight: 900;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .order-time {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .kds-card-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .kds-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .kds-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-qty {
+            font-weight: 800;
+            color: var(--kds-accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .item-name {
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .kds-card-footer {
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .kds-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-preparing {
+            background: var(--status-preparing);
+            color: #000;
+        }
+
+        .btn-ready {
+            background: var(--status-ready);
+            color: #fff;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-indicator.received { background-color: var(--status-received); }
+        .status-indicator.preparing { background-color: var(--status-preparing); }
+
+        .urgency-badge {
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .urgency-critical { background: #ef4444; color: white; }
+        .urgency-high { background: #f97316; color: white; }
+        .urgency-normal { background: #3b82f6; color: white; }
+
+        .no-orders {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 100px;
+            opacity: 0.5;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="kds-body">
+    <div class="kds-header">
+        <h1>Lolly's Kitchen <i class="fas fa-fire"></i></h1>
+        <div class="kds-stats">
+            <div class="kds-stat-item">
+                <div id="stat-pending" class="kds-stat-value">0</div>
+                <div class="kds-stat-label">Pending</div>
+            </div>
+            <div class="kds-stat-item">
+                <div id="stat-preparing" class="kds-stat-value">0</div>
+                <div class="kds-stat-label">Preparing</div>
+            </div>
+            <div class="kds-stat-item">
+                <div id="stat-ready" class="kds-stat-value">0</div>
+                <div class="kds-stat-label">Ready</div>
+            </div>
+            <div class="kds-stat-item">
+                <div id="stat-load" class="kds-stat-value">0%</div>
+                <div class="kds-stat-label">Load</div>
+            </div>
+            <div class="kds-stat-item" style="background: var(--kds-accent); cursor: pointer;" onclick="location.reload()">
+                <div class="kds-stat-value" style="color: white;"><i class="fas fa-sync-alt"></i></div>
+                <div class="kds-stat-label" style="color: white; opacity: 1;">Refresh</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kds-grid" class="kds-grid">
+        <!-- Cards loaded via JS -->
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Check Admin Auth
+        const adminToken = localStorage.getItem('lollys_admin_token');
+        if (!adminToken) window.location.href = 'admin-login.html';
+
+        async function loadKitchenQueue() {
+            try {
+                let data;
+                try {
+                    data = await api.get('/kitchen/queue');
+                } catch (apiErr) {
+                    console.warn('API fetch failed, using internal demo fallback data');
+                    // Internal Demo Fallback Data
+                    data = {
+                        loadStatus: { currentLoad: 85, status: 'Busy', color: 'orange' },
+                        queue: [
+                            { id: 201, order_number: 'KITCH-PREP-001', status: 'Preparing', created_at: new Date(Date.now() - 5 * 60000), urgency_level: 'High', items_summary: '2x Beef Curry, 1x Kota 4' },
+                            { id: 202, order_number: 'KITCH-PREP-002', status: 'Preparing', created_at: new Date(Date.now() - 8 * 60000), urgency_level: 'Normal', items_summary: '1x Chicken Curry' },
+                            { id: 203, order_number: 'KITCH-PREP-003', status: 'Preparing', created_at: new Date(Date.now() - 12 * 60000), urgency_level: 'Normal', items_summary: '3x Gwinya Combo' },
+                            { id: 204, order_number: 'KITCH-PREP-004', status: 'Preparing', created_at: new Date(Date.now() - 15 * 60000), urgency_level: 'High', items_summary: '1x Zulu Burger Combo' },
+                            { id: 205, order_number: 'KITCH-PREP-005', status: 'Preparing', created_at: new Date(Date.now() - 20 * 60000), urgency_level: 'Normal', items_summary: '2x Kota 4' },
+                            { id: 301, order_number: 'KITCH-READY-001', status: 'Ready', created_at: new Date(Date.now() - 25 * 60000), urgency_level: 'Normal', items_summary: '1x Beef Curry' },
+                            { id: 302, order_number: 'KITCH-READY-002', status: 'Ready', created_at: new Date(Date.now() - 30 * 60000), urgency_level: 'Normal', items_summary: '2x Chicken Curry' },
+                            { id: 401, order_number: 'KITCH-PEND-001', status: 'Received', created_at: new Date(Date.now() - 2 * 60000), urgency_level: 'High', items_summary: '1x Kota 4, 1x Gwinya Combo' },
+                            { id: 402, order_number: 'KITCH-PEND-002', status: 'Received', created_at: new Date(Date.now() - 4 * 60000), urgency_level: 'Normal', items_summary: '2x Beef Curry' }
+                        ]
+                    };
+                }
+
+                const grid = document.getElementById('kds-grid');
+                grid.innerHTML = '';
+
+                // Update Stats
+                document.getElementById('stat-pending').textContent = data.queue.filter(o => o.status === 'Received').length;
+                document.getElementById('stat-preparing').textContent = data.queue.filter(o => o.status === 'Preparing').length;
+                document.getElementById('stat-ready').textContent = data.queue.filter(o => o.status === 'Ready').length;
+                document.getElementById('stat-load').textContent = `${data.loadStatus.currentLoad}%`;
+
+                if (data.queue.length === 0) {
+                    grid.innerHTML = '<div class="no-orders">Kitchen is clear. Waiting for new orders...</div>';
+                    return;
+                }
+
+                data.queue.forEach(order => {
+                    const timeAgo = Math.floor((new Date() - new Date(order.created_at)) / 60000);
+                    const urgencyClass = `urgency-${order.urgency_level.toLowerCase()}`;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'kds-card';
+                    
+                    let itemsHtml = '';
+                    // Handle both item array and summary string for flexibility
+                    if (Array.isArray(order.items)) {
+                        itemsHtml = order.items.map(item => `
+                            <div class="kds-item">
+                                <span class="item-qty">${item.quantity}x</span>
+                                <span class="item-name">${item.name}</span>
+                            </div>
+                        `).join('');
+                    } else {
+                        // Fallback to summary string
+                        const summary = order.items_summary || '1x Beef Curry';
+                        itemsHtml = summary.split(', ').map(item => {
+                            const [qty, ...nameParts] = item.split('x ');
+                            return `
+                                <div class="kds-item">
+                                    <span class="item-qty">${qty}x</span>
+                                    <span class="item-name">${nameParts.join('x ')}</span>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+
+                    card.innerHTML = `
+                        <div class="kds-card-header">
+                            <div>
+                                <span class="status-indicator ${order.status.toLowerCase()}"></span>
+                                <span class="order-num">#${order.order_number.slice(-6)}</span>
+                            </div>
+                            <span class="urgency-badge ${urgencyClass}">${order.urgency_level}</span>
+                        </div>
+                        <div class="kds-card-content">
+                            <div style="margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                <span><i class="far fa-clock"></i> ${timeAgo}m ago</span>
+                                <span style="font-weight: 700;">${order.status}</span>
+                            </div>
+                            ${itemsHtml}
+                        </div>
+                        <div class="kds-card-footer">
+                            ${order.status === 'Received' ? `
+                                <button class="kds-btn btn-preparing" onclick="updateStatus(${order.id}, 'Preparing')">Start Cooking</button>
+                            ` : order.status === 'Preparing' ? `
+                                <button class="kds-btn btn-ready" onclick="updateStatus(${order.id}, 'Ready')">Mark Ready</button>
+                            ` : `
+                                <button class="kds-btn" style="background: #1e293b; color: white; border: 1px solid var(--status-ready);" onclick="updateStatus(${order.id}, 'Collected')">Complete/Collect</button>
+                            `}
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                console.error('KDS Load Error:', err);
+            }
+        }
+
+        async function updateStatus(orderId, status) {
+            try {
+                await api.put(`/orders/${orderId}/status`, { status });
+                loadKitchenQueue(); // Refresh
+            } catch (err) {
+                alert('Failed to update kitchen status');
+            }
+        }
+
+        // Auto Refresh every 30 seconds
+        setInterval(loadKitchenQueue, 30000);
+        
+        // Initial load
+        loadKitchenQueue();
+    </script>
+</body>
+</html>

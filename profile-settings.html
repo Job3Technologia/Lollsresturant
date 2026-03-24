@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start;">
+            <!-- Sidebar Navigation -->
+            <aside class="glass-panel" style="padding: 32px; position: sticky; top: 120px;">
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+                        <img id="side-profile-img" src="https://via.placeholder.com/100" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-orange);">
+                    </div>
+                    <h3 id="side-profile-name" style="font-size: 1.1rem; margin-bottom: 4px;">User Name</h3>
+                    <p id="side-profile-email" style="font-size: 0.8rem; color: var(--text-muted);">user@example.com</p>
+                </div>
+                <nav>
+                    <ul style="display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="dashboard.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-th-large"></i> Overview</a></li>
+                        <li><a href="order-history.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-shopping-bag"></i> Order History</a></li>
+                        <li><a href="wallet.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                        <li><a href="profile-settings.html" class="active" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 700; color: var(--accent-orange); background: #FFF7ED;"><i class="fas fa-user-cog"></i> Settings</a></li>
+                        <li style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;"><a href="#" onclick="logout()" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
+                <div class="glass-panel" style="padding: 48px;">
+                    <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px;">Profile Settings</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 40px;">Update your personal information and account preferences.</p>
+
+                    <form id="settings-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="set-first" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="set-last" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="set-phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="set-country" required style="appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 20px top 50%; background-size: 12px auto;">
+                                    <option value="ZA" data-name="South Africa">South Africa</option>
+                                    <option value="UK" data-name="United Kingdom">United Kingdom</option>
+                                    <option value="US" data-name="United States">United States</option>
+                                    <option value="NG" data-name="Nigeria">Nigeria</option>
+                                    <option value="AE" data-name="United Arab Emirates">United Arab Emirates</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 32px;">
+                            <label>Profile Image URL</label>
+                            <input type="text" id="set-image" placeholder="https://example.com/image.jpg">
+                        </div>
+
+                        <div style="height: 1px; background: #E2E8F0; margin-bottom: 40px;"></div>
+
+                        <!-- Verification Section -->
+                        <div style="background: #F8FAFC; padding: 32px; border-radius: 24px; margin-bottom: 40px; border: 1px solid #E2E8F0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                <div>
+                                    <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">Identity Verification</h3>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">Verify your profile for international orders and premium perks.</p>
+                                </div>
+                                <span id="verification-badge" class="status-badge status-cancelled">Unverified</span>
+                            </div>
+                            
+                            <div id="id-upload-section">
+                                <label style="display: block; margin-bottom: 12px; font-weight: 600; font-size: 0.9rem;">Upload ID / Passport</label>
+                                <div style="display: flex; gap: 16px;">
+                                    <input type="text" id="set-id-doc" placeholder="Link to ID document (Simulation)" style="flex: 1;">
+                                    <button type="button" class="btn btn-secondary" onclick="submitVerification()">Submit for Review</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 16px;">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='dashboard.html'">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes <i class="fas fa-save" style="margin-left: 8px;"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('lollys_user'));
+            if (!user) window.location.href = 'login.html';
+
+            try {
+                const profile = await api.get('/customer/profile');
+                
+                // Update Sidebar
+                document.getElementById('side-profile-name').textContent = `${profile.first_name} ${profile.last_name || ''}`;
+                document.getElementById('side-profile-email').textContent = profile.email;
+                if (profile.profile_image_url) {
+                    document.getElementById('side-profile-img').src = profile.profile_image_url;
+                }
+
+                // Fill Form
+                document.getElementById('set-first').value = profile.first_name;
+                document.getElementById('set-last').value = profile.last_name || '';
+                document.getElementById('set-phone').value = profile.phone;
+                document.getElementById('set-image').value = profile.profile_image_url || '';
+                document.getElementById('set-country').value = profile.country_code || 'ZA';
+
+                // Verification Status UI
+                const badge = document.getElementById('verification-badge');
+                const uploadSection = document.getElementById('id-upload-section');
+                
+                badge.textContent = profile.verification_status;
+                if (profile.verification_status === 'Verified') {
+                    badge.className = 'status-badge status-ready';
+                    uploadSection.innerHTML = '<p style="color: var(--success); font-weight: 700;"><i class="fas fa-check-circle"></i> Your identity has been verified.</p>';
+                } else if (profile.verification_status === 'Pending') {
+                    badge.className = 'status-badge status-preparing';
+                    uploadSection.innerHTML = '<p style="color: var(--accent-orange); font-weight: 700;"><i class="fas fa-clock"></i> Verification in progress. Please wait 24-48 hours.</p>';
+                } else {
+                    badge.className = 'status-badge status-cancelled';
+                }
+
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        async function submitVerification() {
+            const idUrl = document.getElementById('set-id-doc').value;
+            if (!idUrl) return alert('Please provide a document link or file');
+            try {
+                await api.post('/customer/verify-id', { idDocumentUrl: idUrl });
+                alert('Verification submitted! Our team will review it shortly.');
+                window.location.reload();
+            } catch (err) {
+                alert('Submission failed');
+            }
+        }
+
+        document.getElementById('settings-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('set-first').value;
+            const lastName = document.getElementById('set-last').value;
+            const phone = document.getElementById('set-phone').value;
+            const profileImageUrl = document.getElementById('set-image').value;
+            const countrySelect = document.getElementById('set-country');
+            const countryCode = countrySelect.value;
+            const countryName = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-name');
+
+            try {
+                await api.put('/customer/profile', { 
+                    firstName, lastName, phone, profileImageUrl, countryCode, countryName 
+                });
+                
+                // Update local storage name
+                const user = JSON.parse(localStorage.getItem('lollys_user'));
+                user.name = `${firstName} ${lastName}`;
+                localStorage.setItem('lollys_user', JSON.stringify(user));
+
+                alert('Profile updated successfully!');
+                window.location.reload();
+            } catch (err) {
+                alert('Failed to update profile');
+            }
+        });
+    </script>
+</body>
+</html>

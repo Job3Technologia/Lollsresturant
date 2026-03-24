@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lolly's Food Joint | Premium Durban Dining</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="fade-in">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" style="background: #000; color: white; text-align: center; padding: 10px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;">
+        <i class="fas fa-star" style="color: var(--accent-yellow);"></i> CRAVING LOLLY'S? FIND US ON <a href="https://www.ubereats.com/za/store/lollys-food-joint-durban/4nR5-RS1VHm8bNta3-oQ2w?msockid=00eeb1c6ac7460a018eca717adbd61f1" target="_blank" style="color: #06C167; text-decoration: none; font-weight: 800; transition: all 0.3s ease;">UBER EATS</a> FOR INSTANT DELIVERY!
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+                <a href="https://www.ubereats.com/za/store/lollys-food-joint-durban/4nR5-RS1VHm8bNta3-oQ2w?msockid=00eeb1c6ac7460a018eca717adbd61f1" target="_blank" class="uber-eats-badge">
+                    <i class="fas fa-motorcycle"></i> Available on Uber Eats
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="cart.html" class="cart-trigger"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count">0</span></a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="min-height: 100vh; display: flex; align-items: center; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5)), url('chicken.jpg'); background-size: cover; background-position: center; position: relative; padding-top: 100px;">
+        <div class="container">
+            <div class="hero-content" data-reveal style="max-width: 800px;">
+                <span style="background: var(--accent-orange); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: inline-block;">Durban's No.1 Street Food</span>
+                <h2 style="font-size: clamp(3rem, 8vw, 5rem); line-height: 1; margin-bottom: 24px; color: white;">Taste the <span style="color: var(--accent-orange);">Soul</span> of Durban</h2>
+                <p style="font-size: 1.25rem; margin-bottom: 40px; color: rgba(255,255,255,0.9); max-width: 600px; line-height: 1.6;">Authentic flavors, premium quality, and the legendary Durban energy. From our famous Curries to the iconic Last Number Kota.</p>
+                <div class="hero-btns" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <a href="menu.html" class="btn btn-primary" style="padding: 18px 48px; font-size: 1.1rem;">Order Now <i class="fas fa-arrow-right"></i></a>
+                    <a href="about.html" class="btn btn-secondary" style="padding: 18px 48px; font-size: 1.1rem; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">Our Story</a>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Indicator -->
+        <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: white; animation: bounce 2s infinite;">
+            <i class="fas fa-chevron-down" style="font-size: 1.5rem;"></i>
+        </div>
+    </header>
+
+    <!-- Why Choose Us -->
+    <section style="padding: 120px 0; background: white;">
+        <div class="container">
+            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                <div class="feature-card" data-reveal style="text-align: center; padding: 40px; border-radius: 32px; background: var(--secondary-white); transition: var(--transition-smooth);">
+                    <div style="width: 80px; height: 80px; background: #FFF7ED; color: var(--accent-orange); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 24px;">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 style="margin-bottom: 16px;">100% Halal</h3>
+                    <p style="color: var(--text-muted);">Strictly certified and prepared with traditional care for your peace of mind.</p>
+                </div>
+                <div class="feature-card" data-reveal style="text-align: center; padding: 40px; border-radius: 32px; background: var(--secondary-white); transition: var(--transition-smooth);">
+                    <div style="width: 80px; height: 80px; background: #ECFDF5; color: var(--success); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 24px;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 style="margin-bottom: 16px;">Fast Pickup</h3>
+                    <p style="color: var(--text-muted);">Skip the queue. Order online and your hot meal will be ready in 15 minutes.</p>
+                </div>
+                <div class="feature-card" data-reveal style="text-align: center; padding: 40px; border-radius: 32px; background: var(--secondary-white); transition: var(--transition-smooth);">
+                    <div style="width: 80px; height: 80px; background: #EFF6FF; color: var(--info); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 24px;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 style="margin-bottom: 16px;">Premium Quality</h3>
+                    <p style="color: var(--text-muted);">We use only the finest local ingredients to ensure every bite is legendary.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Specials -->
+    <section class="featured-specials container" style="padding: 120px 20px;">
+        <div class="section-header" data-reveal>
+            <h2><span>Chef's</span> Featured Specials</h2>
+            <p>Hand-picked favorites for the ultimate Durban feast</p>
+        </div>
+        <div class="specials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px;">
+            <!-- Special 1 -->
+            <div class="card food-card" data-reveal style="border-radius: 32px; overflow: hidden; background: white; box-shadow: var(--shadow-lg);">
+                <span class="badge" style="position: absolute; top: 20px; right: 20px; z-index: 10; background: var(--accent-orange); color: white; padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem;">Most Popular</span>
+                <div style="height: 280px; overflow: hidden;">
+                    <img src="Menu page images/IMG-20260314-WA0001.jpg" alt="Beef Curry" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s;">
+                </div>
+                <div class="food-info" style="padding: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="margin: 0;">Beef Curry</h3>
+                        <span style="color: var(--accent-orange); font-weight: 800; font-size: 1.5rem;">R81.00</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">Tender beef slow-cooked in our signature aromatic spice blend for 6 hours.</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart(1, 'Beef Curry', 81.00)">Add to Cart</button>
+                </div>
+            </div>
+            <!-- Special 2 -->
+            <div class="card food-card" data-reveal style="border-radius: 32px; overflow: hidden; background: white; box-shadow: var(--shadow-lg);">
+                <span class="badge" style="position: absolute; top: 20px; right: 20px; z-index: 10; background: var(--accent-yellow); color: var(--text-dark); padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem;">Tuesday Only</span>
+                <div style="height: 280px; overflow: hidden;">
+                    <img src="Menu page images/IMG-20260314-WA0004.jpg" alt="Chicken Biryani" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s;">
+                </div>
+                <div class="food-info" style="padding: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="margin: 0;">Chicken Biryani</h3>
+                        <span style="color: var(--accent-orange); font-weight: 800; font-size: 1.5rem;">R81.00</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">Fragrant basmati rice layered with spiced chicken, saffron, and garden herbs.</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart(4, 'Chicken Biryani', 81.00)">Add to Cart</button>
+                </div>
+            </div>
+            <!-- Special 3 -->
+            <div class="card food-card" data-reveal style="border-radius: 32px; overflow: hidden; background: white; box-shadow: var(--shadow-lg);">
+                <span class="badge" style="position: absolute; top: 20px; right: 20px; z-index: 10; background: var(--text-dark); color: white; padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem;">Durban Legend</span>
+                <div style="height: 280px; overflow: hidden;">
+                    <img src="Menu page images/IMG-20260314-WA0016.jpg" alt="Last Number Kota" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s;">
+                </div>
+                <div class="food-info" style="padding: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="margin: 0;">Last Number Kota</h3>
+                        <span style="color: var(--accent-orange); font-weight: 800; font-size: 1.5rem;">R81.00</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">The ultimate Durban street food experience. Fully loaded with all the trimmings.</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="addToCart(11, 'Last Number Kota', 81.00)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 64px;">
+            <a href="menu.html" class="btn btn-secondary" style="padding: 16px 40px;">View Full Menu <i class="fas fa-utensils" style="margin-left: 10px;"></i></a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us" style="background: var(--secondary-black); padding: 100px 0;">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <h2>Why Lolly's?</h2>
+                <p>We're more than just a food joint - we're a Durban destination</p>
+            </div>
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center;">
+                <div class="feature-item" data-reveal>
+                    <i class="fas fa-fire" style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Authentic Spices</h3>
+                    <p>Traditional Durban spices sourced directly for that real home-cooked taste.</p>
+                </div>
+                <div class="feature-item" data-reveal>
+                    <i class="fas fa-bolt" style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Fast Ordering</h3>
+                    <p>Our premium digital system ensures your food is ready when you are.</p>
+                </div>
+                <div class="feature-item" data-reveal>
+                    <i class="fas fa-heart" style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Made with Love</h3>
+                    <p>Every meal is prepared with passion by our local culinary experts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section class="location-contact container" style="padding: 100px 20px;">
+        <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+            <div class="contact-text" data-reveal>
+                <h2>Visit Us</h2>
+                <p style="margin-bottom: 30px;">Located in the heart of Durban Central. Come experience the energy.</p>
+                <div class="contact-details">
+                    <p style="margin-bottom: 15px;"><i class="fas fa-map-marker-alt" style="color: var(--accent-orange); margin-right: 15px;"></i> 537 Anton Lembede St, Durban Central, 4001</p>
+                    <p style="margin-bottom: 15px;"><i class="fas fa-phone" style="color: var(--accent-orange); margin-right: 15px;"></i> 083 353 2775</p>
+                    <p style="margin-bottom: 30px;"><i class="fas fa-clock" style="color: var(--accent-orange); margin-right: 15px;"></i> Mon - Sat: 08:00 - 18:00</p>
+                </div>
+                <a href="https://wa.me/27833532775" class="btn btn-secondary"><i class="fab fa-whatsapp"></i> Chat with Us</a>
+            </div>
+            <div class="map-container card" style="height: 400px;" data-reveal>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.123456789!2d31.02!3d-29.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDUxJzAwLjAiUyAzMcKwMDEnMTIuMCJF!5e0!3m2!1sen!2sza!4v1600000000000!5m2!1sen!2sza" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter" style="padding: 100px 0; background: var(--text-dark); color: white; text-align: center;">
+        <div class="container">
+            <div class="newsletter-content" data-reveal>
+                <h2 style="color: var(--accent-orange); margin-bottom: 20px;">Join the Lolly's Fam</h2>
+                <p style="margin-bottom: 30px; opacity: 0.8;">Subscribe for exclusive deals, new menu drops, and Durban vibes.</p>
+                <form id="newsletter-form" style="display: flex; max-width: 500px; margin: 0 auto; gap: 10px;">
+                    <input type="email" id="newsletter-email" placeholder="Your email address" required style="flex: 1; padding: 15px; border-radius: 8px; border: none; font-family: inherit;">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+                <div id="newsletter-message" style="margin-top: 15px; font-weight: 600;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #000; color: white; padding: 80px 0 40px;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h1 style="color: var(--accent-orange); margin-bottom: 20px;">Lolly's</h1>
+                    <p>The soul of Durban food, delivered digitally to your doorstep.</p>
+                    <div class="socials">
+                        <a href="https://www.facebook.com/p/Lollys-Food-Joint-100068806813681" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="admin-login.html" style="color: var(--accent-orange); font-weight: 700; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 10px; display: block;"><i class="fas fa-user-shield"></i> Admin Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>537 Anton Lembede St, Durban</p>
+                    <p>083 353 2775</p>
+                    <p>orders@lollys.co.za</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Lolly's Food Joint. Premium Durban Dining.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Icon -->
+    <a href="cart.html" class="floating-cart">
+        <i class="fas fa-shopping-basket" style="color: white; font-size: 1.5rem;"></i>
+        <span id="cart-count-float" style="position: absolute; top: 0; right: 0; background: var(--accent-yellow); color: var(--primary-black); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;">0</span>
+    </a>
+
+    <!-- JS -->
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>

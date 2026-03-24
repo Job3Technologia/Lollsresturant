@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+                <a href="https://www.ubereats.com/za/store/lollys-food-joint-durban/4nR5-RS1VHm8bNta3-oQ2w?msockid=00eeb1c6ac7460a018eca717adbd61f1" target="_blank" class="uber-eats-badge">
+                    <i class="fas fa-motorcycle"></i> Available on Uber Eats
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="margin-bottom: 48px; text-align: center;">
+            <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 8px;">Final Step</span>
+            <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -1.5px;">Complete Your <span style="color: var(--accent-orange);">Order</span></h1>
+        </div>
+        
+        <form id="checkout-form" style="display: grid; grid-template-columns: 1fr 400px; gap: 48px; align-items: start;">
+            <div class="glass-panel" style="padding: 48px;">
+                <h3 style="margin-bottom: 32px; font-size: 1.5rem; display: flex; align-items: center; gap: 12px;">
+                    <i class="fas fa-user-circle" style="color: var(--accent-orange);"></i> Customer Details
+                </h3>
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="cust-name" required placeholder="e.g. John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="cust-phone" required placeholder="e.g. 083 353 2775">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 48px; margin-bottom: 32px; font-size: 1.5rem; display: flex; align-items: center; gap: 12px;">
+                    <i class="fas fa-truck" style="color: var(--accent-orange);"></i> Collection Info
+                </h3>
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="form-group">
+                        <label>Preferred Pickup Time</label>
+                        <input type="time" id="pickup-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="payment-method" style="appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 20px top 50%; background-size: 12px auto;">
+                            <option value="Online">Secure Online Payment (Visa/Mastercard)</option>
+                            <option value="Cash">Cash on Collection</option>
+                            <option value="Card">Card on Collection</option>
+                            <option value="Wallet" id="wallet-option">Lolly's Wallet (R0.00)</option>
+                        </select>
+                        <div id="payment-icons" style="display: flex; gap: 12px; margin-top: 15px; align-items: center; background: #f1f5f9; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <i class="fab fa-cc-visa" style="font-size: 1.8rem; color: #1a1f71;"></i>
+                            <i class="fab fa-cc-mastercard" style="font-size: 1.8rem; color: #eb001b;"></i>
+                            <div style="width: 1px; height: 20px; background: #cbd5e1; margin: 0 5px;"></div>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="font-size: 0.65rem; color: var(--text-dark); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1;">Secure Checkout</span>
+                                <span style="font-size: 0.55rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px;">Verified by Visa & Mastercard</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 24px;">
+                    <label>Special Instructions (Optional)</label>
+                    <textarea id="order-notes" rows="4" placeholder="Any dietary requirements or collection notes..." style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #E2E8F0; background: #F8FAFC; font-family: inherit; resize: none;"></textarea>
+                </div>
+            </div>
+            
+            <div id="checkout-summary" class="glass-panel" style="padding: 40px; position: sticky; top: 120px;">
+                <h3 style="margin-bottom: 24px; font-size: 1.5rem;">Order Summary</h3>
+                <div id="checkout-summary-items" style="max-height: 300px; overflow-y: auto; margin-bottom: 24px;">
+                    <!-- Items will be loaded here -->
+                </div>
+                <div style="height: 1px; background: #E2E8F0; margin: 24px 0;"></div>
+                <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 1.5rem; margin-bottom: 32px; letter-spacing: -0.5px;">
+                    <span>Total</span>
+                    <span id="checkout-total" style="color: var(--accent-orange);">R0.00</span>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 20px; font-size: 1.1rem;">Place Order <i class="fas fa-check-circle" style="margin-left: 10px;"></i></button>
+                
+                <div style="margin-top: 24px; text-align: center;">
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">
+                        <i class="fas fa-clock" style="margin-right: 5px;"></i> Pickup in ~15-20 minutes
+                    </p>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <div id="order-success" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); z-index: 3000; align-items: center; justify-content: center;">
+        <div class="glass-panel" style="max-width: 500px; width: 90%; padding: 60px 40px; text-align: center; background: white;">
+            <div style="width: 100px; height: 100px; background: #DCFCE7; color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 32px; animation: scaleIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 16px; letter-spacing: -1px;">Order Received!</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px;">Your feast is being prepared. Order ID: <span id="order-num" style="color: var(--accent-orange); font-weight: 800;"></span></p>
+            <div style="background: var(--secondary-white); padding: 20px; border-radius: 20px; margin-bottom: 40px; text-align: left;">
+                <p style="font-size: 0.9rem; margin-bottom: 8px;"><i class="fas fa-clock" style="color: var(--accent-orange); margin-right: 10px;"></i> <strong>Pickup Time:</strong> <span id="display-pickup"></span></p>
+                <p style="font-size: 0.9rem;"><i class="fas fa-map-marker-alt" style="color: var(--accent-orange); margin-right: 10px;"></i> <strong>Location:</strong> 123 Smith Street, Durban</p>
+            </div>
+            <a href="index.html" class="btn btn-primary" style="width: 100%; padding: 18px;">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const summary = document.getElementById('checkout-summary-items');
+            const totalEl = document.getElementById('checkout-total');
+            const paymentMethod = document.getElementById('payment-method');
+            const paymentIcons = document.getElementById('payment-icons');
+            const walletOption = document.getElementById('wallet-option');
+            let subtotal = 0;
+
+            // Load User Data if logged in
+            const user = JSON.parse(localStorage.getItem('lollys_user'));
+            if (user) {
+                document.getElementById('cust-name').value = user.name || '';
+                document.getElementById('cust-phone').value = user.phone || '';
+                
+                try {
+                    const profile = await api.get('/customer/profile');
+                    if (profile && profile.wallet_balance !== undefined) {
+                        walletOption.textContent = `Lolly's Wallet (R${parseFloat(profile.wallet_balance).toFixed(2)})`;
+                    }
+                } catch (e) {
+                    console.error('Failed to load wallet balance');
+                }
+            }
+
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+                summary.innerHTML += `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem;">
+                        <span>${item.quantity}x ${item.name}</span>
+                        <span>R${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            totalEl.textContent = `R${(subtotal + 5).toFixed(2)}`;
+
+            // Toggle payment icons based on selection
+            paymentMethod.addEventListener('change', () => {
+                if (paymentMethod.value === 'Online') {
+                    paymentIcons.style.display = 'flex';
+                } else {
+                    paymentIcons.style.display = 'none';
+                }
+            });
+            
+            // Set initial state
+            if (paymentMethod.value !== 'Online') {
+                paymentIcons.style.display = 'none';
+            }
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const orderData = {
+                customer_name: document.getElementById('cust-name').value,
+                customer_phone: document.getElementById('cust-phone').value,
+                items: cart.map(item => ({ menu_item_id: item.id, quantity: item.quantity, price: item.price })),
+                subtotal: cart.reduce((acc, i) => acc + (i.price * i.quantity), 0),
+                service_fee: 5,
+                total_amount: cart.reduce((acc, i) => acc + (i.price * i.quantity), 0) + 5,
+                payment_method: document.getElementById('payment-method').value,
+                pickup_time: document.getElementById('pickup-time').value,
+                notes: document.getElementById('order-notes').value
+            };
+
+            try {
+                const response = await api.post('/orders', orderData);
+                if (response.order_number) {
+                    document.getElementById('order-num').textContent = response.order_number;
+                    document.getElementById('order-success').style.display = 'flex';
+                    localStorage.removeItem('lollys_cart');
+                    cart = [];
+                    updateCart();
+                }
+            } catch (error) {
+                alert('Error placing order. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

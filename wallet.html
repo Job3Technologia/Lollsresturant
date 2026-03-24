@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wallet | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start;">
+            <!-- Sidebar Navigation -->
+            <aside class="glass-panel" style="padding: 32px; position: sticky; top: 120px;">
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+                        <img id="side-profile-img" src="https://via.placeholder.com/100" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-orange);">
+                    </div>
+                    <h3 id="side-profile-name" style="font-size: 1.1rem; margin-bottom: 4px;">User Name</h3>
+                    <p id="side-profile-email" style="font-size: 0.8rem; color: var(--text-muted);">user@example.com</p>
+                </div>
+                <nav>
+                    <ul style="display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="dashboard.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-th-large"></i> Overview</a></li>
+                        <li><a href="order-history.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-shopping-bag"></i> Order History</a></li>
+                        <li><a href="wallet.html" class="active" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 700; color: var(--accent-orange); background: #FFF7ED;"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                        <li><a href="profile-settings.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-user-cog"></i> Settings</a></li>
+                        <li style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;"><a href="#" onclick="logout()" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px;">
+                    <div class="glass-panel" style="padding: 48px; background: linear-gradient(135deg, var(--accent-orange), #EA580C); color: white;">
+                        <h4 style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 16px; opacity: 0.8;">Current Balance</h4>
+                        <h2 id="wallet-total" style="font-size: 3.5rem; font-weight: 900; margin-bottom: 32px; letter-spacing: -2px;">R0.00</h2>
+                        <button class="btn btn-secondary" style="color: var(--accent-orange); font-weight: 800; padding: 16px 32px;" onclick="openDepositModal()">Deposit Funds <i class="fas fa-plus"></i></button>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 48px; display: flex; flex-direction: column; justify-content: center; background: white;">
+                        <h4 style="color: var(--text-muted); font-weight: 700; margin-bottom: 12px;">Quick Deposit</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                            <button class="btn btn-secondary btn-sm" onclick="quickDeposit(50)">R50</button>
+                            <button class="btn btn-secondary btn-sm" onclick="quickDeposit(100)">R100</button>
+                            <button class="btn btn-secondary btn-sm" onclick="quickDeposit(200)">R200</button>
+                        </div>
+                        <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted); text-align: center;"><i class="fas fa-shield-alt"></i> Secure transactions via Stripe</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 48px;">
+                    <h3 style="margin-bottom: 32px; font-size: 1.5rem; font-weight: 900;">Recent Transactions</h3>
+                    <div id="transaction-logs" style="max-height: 500px; overflow-y: auto;">
+                        <!-- Loaded via JS -->
+                        <p style="text-align: center; color: var(--text-muted); padding: 40px;">No transactions yet.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Deposit Modal (Reused) -->
+    <div id="deposit-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); z-index: 3000; align-items: center; justify-content: center;">
+        <div class="glass-panel" style="width: 450px; padding: 48px; background: white;">
+            <h3 style="margin-bottom: 24px; font-size: 1.5rem; font-weight: 900;">Deposit Funds</h3>
+            <form id="deposit-form">
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label>Amount (ZAR)</label>
+                    <input type="number" id="deposit-amount" required min="10" placeholder="e.g. 100">
+                </div>
+                <div style="background: var(--secondary-white); padding: 24px; border-radius: 20px; margin-bottom: 32px;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; font-weight: 600;">Payment Method</p>
+                    <label style="display: flex; align-items: center; gap: 16px; border: 2px solid var(--accent-orange); border-radius: 16px; padding: 16px; background: white; cursor: pointer;">
+                        <i class="fab fa-cc-visa" style="font-size: 2rem; color: #1A1F71;"></i>
+                        <i class="fab fa-cc-mastercard" style="font-size: 2rem; color: #EB001B;"></i>
+                        <div style="flex: 1;">
+                            <p style="font-weight: 700; font-size: 0.9rem;">Credit/Debit Card</p>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">Visa, Mastercard</p>
+                        </div>
+                    </label>
+                </div>
+                <div style="display: flex; gap: 16px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeDepositModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 16px 32px;">Pay Now <i class="fas fa-lock" style="margin-left: 8px; font-size: 0.8rem;"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('lollys_user'));
+            if (!user) window.location.href = 'login.html';
+
+            try {
+                const profile = await api.get('/customer/profile');
+                
+                // Update Sidebar
+                document.getElementById('side-profile-name').textContent = `${profile.first_name} ${profile.last_name || ''}`;
+                document.getElementById('side-profile-email').textContent = profile.email;
+                if (profile.profile_image_url) {
+                    document.getElementById('side-profile-img').src = profile.profile_image_url;
+                }
+
+                // Update Balance
+                document.getElementById('wallet-total').textContent = `R${parseFloat(profile.wallet_balance).toFixed(2)}`;
+
+                // Load Logs (Reusing activity logs for now)
+                const logs = await api.get('/customer/logs');
+                const container = document.getElementById('transaction-logs');
+                if (logs.length > 0) {
+                    container.innerHTML = '';
+                    logs.filter(log => log.action.includes('WALLET')).forEach(log => {
+                        container.innerHTML += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div>
+                                    <h4 style="font-size: 0.95rem; margin-bottom: 4px; font-weight: 700;">${log.action.replace('_', ' ')}</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">${log.details}</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">${new Date(log.created_at).toLocaleDateString()}</p>
+                                    <p style="font-weight: 800; color: var(--success); font-size: 1.1rem;">Success</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        function openDepositModal() {
+            document.getElementById('deposit-modal').style.display = 'flex';
+        }
+
+        function closeDepositModal() {
+            document.getElementById('deposit-modal').style.display = 'none';
+        }
+
+        function quickDeposit(amt) {
+            document.getElementById('deposit-amount').value = amt;
+            openDepositModal();
+        }
+
+        document.getElementById('deposit-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('deposit-amount').value;
+            const transaction_id = 'TXN' + Date.now();
+            
+            try {
+                await api.post('/customer/deposit', { amount, transaction_id });
+                alert('Deposit successful!');
+                window.location.reload();
+            } catch (err) {
+                alert('Deposit failed');
+            }
+        });
+    </script>
+</body>
+</html>

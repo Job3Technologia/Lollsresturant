@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Customer Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 150px 0; display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+        <div class="card glass-panel" style="width: 100%; max-width: 450px; padding: 48px; border-top: 5px solid var(--accent-orange);">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <i class="fas fa-lock" style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                <h2 style="margin-bottom: 10px;">Admin Portal</h2>
+                <p style="color: var(--text-muted);">Secure access for Lolly's Management</p>
+            </div>
+            
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="admin-email" required placeholder="admin@lollys.co.za">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="admin-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                    Access Dashboard <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <div style="margin-top: 24px; padding: 20px; background: rgba(249, 115, 22, 0.05); border: 1px dashed var(--accent-orange); border-radius: 16px; font-size: 0.8rem; color: var(--text-dark); text-align: center; line-height: 1.6;">
+                    <p style="margin-bottom: 8px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">Authorized Admin Access</p>
+                    <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(249, 115, 22, 0.1);">
+                        <strong style="display: block; color: var(--accent-orange);">Executive Admin:</strong>
+                        admin@lollys.co.za / admin123
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--accent-orange);">Meluleki:</strong>
+                        RealAdmin@lollys.com / Woke49today
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+
+            // TEMPORARY BYPASS: Hardcoded credentials for demo purposes
+            const demoAdmins = [
+                { email: 'admin@lollys.co.za', password: 'admin123', name: 'CEO Administrator' },
+                { email: 'RealAdmin@lollys.com', password: 'Woke49today', name: 'Meluleki (Admin)' }
+            ];
+
+            const demoAdmin = demoAdmins.find(a => a.email === email && a.password === password);
+
+            if (demoAdmin) {
+                console.log('Bypassing API for demo login');
+                const adminObj = {
+                    id: demoAdmin.email === 'RealAdmin@lollys.com' ? 2 : 1,
+                    full_name: demoAdmin.name,
+                    role: 'Admin',
+                    email: demoAdmin.email
+                };
+                localStorage.setItem('lollys_admin_token', 'demo_admin_token_12345');
+                localStorage.setItem('lollys_admin_user', JSON.stringify(adminObj));
+                
+                // Redirect RealAdmin to the comprehensive demo dashboard
+                if (demoAdmin.email === 'RealAdmin@lollys.com') {
+                    window.location.href = 'admindemo.html';
+                } else {
+                    window.location.href = 'admin.html';
+                }
+                return;
+            }
+
+            try {
+                // Assuming we'll add a specific endpoint for staff login or use a flag
+                const response = await fetch('http://localhost:5000/api/auth/staff/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('lollys_admin_token', data.token);
+                    localStorage.setItem('lollys_admin_user', JSON.stringify(data.staff));
+                    window.location.href = 'admin.html';
+                } else {
+                    alert(data.error || 'Access Denied');
+                }
+            } catch (err) {
+                // If connection fails, still show the bypass option if credentials match
+                alert('Connection failed, but you can use the CEO demo credentials provided below to access the dashboard.');
+            }
+        });
+    </script>
+</body>
+</html>

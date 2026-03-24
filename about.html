@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+                <a href="https://www.ubereats.com/za/store/lollys-food-joint-durban/4nR5-RS1VHm8bNta3-oQ2w?msockid=00eeb1c6ac7460a018eca717adbd61f1" target="_blank" class="uber-eats-badge">
+                    <i class="fas fa-motorcycle"></i> Available on Uber Eats
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count">0</span></a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="height: 60vh; display: flex; align-items: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('chicken.jpg'); background-size: cover; background-position: center;">
+        <div class="container text-center">
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px; color: white;">Our <span style="color: var(--accent-orange);">Story</span></h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #f3f4f6;">Bringing the authentic taste of Durban to your plate, one meal at a time.</p>
+        </div>
+    </header>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+            <div data-reveal>
+                <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 16px;">Our Legacy</span>
+                <h1 style="font-size: 4rem; font-weight: 900; margin-bottom: 24px; letter-spacing: -2px; line-height: 1.1;">Born in the Heart of <span style="color: var(--accent-orange);">Durban</span></h1>
+                <p style="font-size: 1.25rem; color: var(--text-dark); margin-bottom: 32px; line-height: 1.6; font-weight: 500;">
+                    Lolly's Food Joint isn't just a restaurant; it's a culinary journey through the vibrant streets of Durban.
+                </p>
+                <p style="color: var(--text-muted); margin-bottom: 40px; line-height: 1.8;">
+                    Founded with a passion for authentic flavors, we bring you the legendary tastes that define our city. From our slow-cooked curries to our world-famous Kotas, every dish is a tribute to the rich cultural tapestry of KwaZulu-Natal.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                    <div>
+                        <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 8px;">100%</h3>
+                        <p style="font-weight: 700; font-size: 0.9rem;">Halal Certified</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 8px;">15k+</h3>
+                        <p style="font-weight: 700; font-size: 0.9rem;">Happy Clients</p>
+                    </div>
+                </div>
+            </div>
+            <div style="position: relative;" data-reveal>
+                <div style="position: absolute; top: -20px; left: -20px; width: 100%; height: 100%; border: 2px solid var(--accent-orange); border-radius: 40px; z-index: -1;"></div>
+                <img src="chicken.jpg" alt="Durban Food" style="width: 100%; border-radius: 40px; box-shadow: var(--shadow-premium);">
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-cream); padding: 100px 0;">
+        <div class="container text-center">
+            <h2 style="font-size: 2.5rem; margin-bottom: 50px;">Visit Us</h2>
+            <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="card glass-panel" style="padding: 40px;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Location</h3>
+                    <p style="color: var(--text-muted);">123 Smith Street<br>Durban Central, 4001</p>
+                </div>
+                <div class="card glass-panel" style="padding: 40px;">
+                    <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Opening Hours</h3>
+                    <p style="color: var(--text-muted);">Mon - Sat: 8:00 AM - 8:00 PM<br>Sunday: Closed</p>
+                </div>
+                <div class="card glass-panel" style="padding: 40px;">
+                    <i class="fas fa-phone-alt" style="font-size: 2rem; color: var(--accent-orange); margin-bottom: 20px;"></i>
+                    <h3>Contact</h3>
+                    <p style="color: var(--text-muted);">083 353 2775<br>orders@lollys.co.za</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

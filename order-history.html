@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start;">
+            <!-- Sidebar Navigation -->
+            <aside class="glass-panel" style="padding: 32px; position: sticky; top: 120px;">
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+                        <img id="side-profile-img" src="https://via.placeholder.com/100" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-orange);">
+                    </div>
+                    <h3 id="side-profile-name" style="font-size: 1.1rem; margin-bottom: 4px;">User Name</h3>
+                    <p id="side-profile-email" style="font-size: 0.8rem; color: var(--text-muted);">user@example.com</p>
+                </div>
+                <nav>
+                    <ul style="display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="dashboard.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-th-large"></i> Overview</a></li>
+                        <li><a href="order-history.html" class="active" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 700; color: var(--accent-orange); background: #FFF7ED;"><i class="fas fa-shopping-bag"></i> Order History</a></li>
+                        <li><a href="wallet.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                        <li><a href="profile-settings.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: var(--text-muted);"><i class="fas fa-user-cog"></i> Settings</a></li>
+                        <li style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;"><a href="#" onclick="logout()" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 12px; font-weight: 600; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
+                <div class="glass-panel" style="padding: 48px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+                        <div>
+                            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px;">Order History</h2>
+                            <p style="color: var(--text-muted);">View all your past and active orders from Lolly's Food Joint.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="window.location.href='menu.html'"><i class="fas fa-plus"></i> New Order</button>
+                    </div>
+
+                    <div class="data-table-container">
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Date</th>
+                                    <th>Items Summary</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-orders-body">
+                                <!-- Loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('lollys_user'));
+            if (!user) window.location.href = 'login.html';
+
+            try {
+                // Fetch profile for sidebar
+                const profile = await api.get('/customer/profile');
+                document.getElementById('side-profile-name').textContent = `${profile.first_name} ${profile.last_name || ''}`;
+                document.getElementById('side-profile-email').textContent = profile.email;
+                if (profile.profile_image_url) {
+                    document.getElementById('side-profile-img').src = profile.profile_image_url;
+                }
+
+                // Fetch Orders
+                const orders = await api.get('/customer/orders');
+                const tbody = document.getElementById('full-orders-body');
+                if (orders.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 60px;">No orders found. <a href="menu.html" style="color: var(--accent-orange); font-weight: 700;">Start Ordering</a></td></tr>`;
+                } else {
+                    orders.forEach(order => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td style="font-weight: 800; color: var(--text-dark);">${order.order_number}</td>
+                                <td>${new Date(order.created_at).toLocaleDateString()}</td>
+                                <td style="font-size: 0.85rem; color: var(--text-muted);">${order.items_summary || 'Order details...'}</td>
+                                <td style="font-weight: 700; color: var(--text-dark);">R${parseFloat(order.total_amount).toFixed(2)}</td>
+                                <td><span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span></td>
+                                <td><button class="btn btn-secondary btn-sm" style="padding: 8px 16px; font-size: 0.8rem;" onclick="reorder(${order.id})">Reorder</button></td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        async function reorder(orderId) {
+            alert('Reordering... This feature is coming soon!');
+        }
+    </script>
+</body>
+</html>

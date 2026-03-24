@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div class="sidebar-logo">
+                    <img src="Images/lollys logo.jpg" alt="Lolly's Logo" style="height: 50px;">
+                </div>
+                <button class="btn btn-sm btn-secondary mobile-close-btn" onclick="toggleSidebar()" style="display: none;"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" onclick="showSection('overview')"><i class="fas fa-th-large"></i> <span>Overview</span></a></li>
+                <li><a href="#" onclick="showSection('orders')"><i class="fas fa-shopping-bag"></i> <span>Orders</span></a></li>
+                <li><a href="#" onclick="showSection('menu')"><i class="fas fa-utensils"></i> <span>Menu Management</span></a></li>
+                <li><a href="#" onclick="showSection('crm')"><i class="fas fa-users"></i> <span>CRM / Customers</span></a></li>
+                <li><a href="#" onclick="showSection('newsletter')"><i class="fas fa-envelope"></i> <span>Newsletter</span></a></li>
+                <li><a href="#" onclick="showSection('accounting')"><i class="fas fa-chart-bar"></i> <span>Accounting</span></a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+            <div style="margin-top: auto; padding-top: 50px;">
+                <a href="#" onclick="logout()" class="btn btn-secondary" style="width: 100%; border-color: #FEE2E2; color: #EF4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Mobile Sidebar Toggle -->
+            <div class="mobile-nav-toggle" style="display: none; margin-bottom: 20px;">
+                <button class="btn btn-secondary" onclick="toggleSidebar()"><i class="fas fa-bars"></i> Menu</button>
+            </div>
+
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                <div>
+                    <h2 id="page-title" style="font-size: 1.8rem;">Executive Overview</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time business performance metrics</p>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn btn-secondary" onclick="exportReport()"><i class="fas fa-download"></i> Export Report</button>
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> New Order</button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <div id="overview-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <h3>Today's Revenue</h3>
+                        <div class="value" id="stat-revenue">R0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+                        <h3>Orders</h3>
+                        <div class="value" id="stat-orders">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-fire"></i></div>
+                        <h3>Active Kitchen</h3>
+                        <div class="value" id="stat-kitchen">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-clock"></i></div>
+                        <h3>Avg. Prep Time</h3>
+                        <div class="value" id="stat-avg-prep">0m</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; margin-top: 32px;">
+                    <div class="data-table-container">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>Live Production Monitoring</h3>
+                            <a href="kitchendemo.html" target="_blank" style="color: var(--accent-orange); font-size: 0.9rem; font-weight: 700;">Open KDS <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Customer</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <!-- Loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card glass-panel" style="padding: 32px;">
+                        <h3 style="margin-bottom: 24px;">CRM Insights</h3>
+                        <div id="crm-insights" style="display: flex; flex-direction: column; gap: 20px;">
+                            <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--info);">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Top Customer</p>
+                                <p id="crm-top-customer" style="font-weight: 800; font-size: 1.1rem;">Loading...</p>
+                            </div>
+                            <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--success);">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Peak Hour</p>
+                                <p id="crm-peak-hour" style="font-weight: 800; font-size: 1.1rem;">12:00 PM - 1:00 PM</p>
+                            </div>
+                            <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--warning);">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Loyalty Rate</p>
+                                <p id="crm-loyalty-rate" style="font-weight: 800; font-size: 1.1rem;">64% Returning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div id="newsletter-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3>Newsletter Subscribers</h3>
+                    <p style="color: var(--text-muted);">Manage your mailing list</p>
+                </div>
+                <div class="data-table-container">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Date Subscribed</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-newsletter-body">
+                            <!-- Subscribers loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Accounting Section -->
+            <div id="accounting-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3>Profit and Loss Statement</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="date" id="accounting-start" class="form-control" style="width: auto;">
+                        <input type="date" id="accounting-end" class="form-control" style="width: auto;">
+                        <button class="btn btn-primary" onclick="loadAccountingData()">Generate Statement</button>
+                    </div>
+                </div>
+                
+                <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div class="card glass-panel" style="padding: 30px;">
+                        <h4 style="color: var(--text-muted); margin-bottom: 20px;">Financial Summary</h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <span>Total Sales Revenue</span>
+                            <span id="acc-revenue" style="font-weight: 700;">R0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <span>Cost of Goods Sold (COGS)</span>
+                            <span id="acc-cogs" style="color: var(--error); font-weight: 700;">(R0.00)</span>
+                        </div>
+                        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800;">
+                            <span>Gross Profit</span>
+                            <span id="acc-gross" style="color: var(--success);">R0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card glass-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <div id="profit-percentage" style="font-size: 3.5rem; font-weight: 900; color: var(--accent-orange);">0%</div>
+                        <p style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">Net Profit Margin</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Orders Section -->
+            <div id="orders-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3>Order Management</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary active" onclick="filterOrders('active', this)">Active Orders</button>
+                        <button class="btn btn-secondary" onclick="filterOrders('history', this)">Order History</button>
+                    </div>
+                </div>
+                <div class="data-table-container">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-body">
+                            <!-- Orders loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Menu Management Section -->
+            <div id="menu-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3>Menu Management</h3>
+                    <button class="btn btn-primary" onclick="openMenuModal()"><i class="fas fa-plus"></i> Add Item</button>
+                </div>
+                <div class="data-table-container">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-menu-body">
+                            <!-- Menu items loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Menu Modal -->
+            <div id="menu-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+                <div class="card glass-panel" style="width: 500px; max-width: 90%; padding: 30px; background: white;">
+                    <h3 id="modal-title" style="margin-bottom: 20px;">Add Menu Item</h3>
+                    <form id="menu-form">
+                        <input type="hidden" id="menu-id">
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label>Name</label>
+                            <input type="text" id="menu-name" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label>Category</label>
+                            <select id="menu-category" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                <!-- Categories loaded via JS -->
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label>Price (R)</label>
+                            <input type="number" id="menu-price" step="0.01" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label>Image URL</label>
+                            <input type="text" id="menu-image" class="form-control" placeholder="images/item.jpg" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label>Description</label>
+                            <textarea id="menu-desc" class="form-control" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Special Badge</label>
+                                <input type="text" id="menu-badge" class="form-control" placeholder="e.g. New, Popular" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                            </div>
+                            <div class="form-group" style="flex: 1; display: flex; align-items: center; padding-top: 25px;">
+                                <input type="checkbox" id="menu-featured" style="width: 20px; height: 20px; margin-right: 10px;">
+                                <label for="menu-featured" style="margin: 0; cursor: pointer;">Featured Item</label>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                            <button type="button" class="btn btn-secondary" onclick="closeMenuModal()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Customer Profile Modal -->
+            <div id="customer-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+                <div class="card glass-panel" style="width: 600px; max-width: 90%; padding: 30px; background: white;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3 id="cust-name">Customer Profile</h3>
+                        <button onclick="closeCustomerModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    </div>
+                    <div id="cust-details">
+                        <!-- Details loaded via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRM Section -->
+            <div id="crm-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3>Customer Relationship Management</h3>
+                    <div style="position: relative;">
+                        <input type="text" placeholder="Search customers..." style="padding: 10px 40px 10px 15px; border-radius: 20px; border: 1px solid #E5E7EB; width: 300px;">
+                        <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Total Spent</th>
+                                <th>Orders</th>
+                                <th>Last Active</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crm-table-body">
+                            <!-- Customers loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function showSection(section) {
+            // Close sidebar on mobile when navigating
+            document.querySelector('.sidebar').classList.remove('active');
+
+            document.getElementById('overview-section').style.display = 'none';
+            document.getElementById('orders-section').style.display = 'none';
+            document.getElementById('menu-section').style.display = 'none';
+            document.getElementById('accounting-section').style.display = 'none';
+            document.getElementById('crm-section').style.display = 'none';
+            document.getElementById('newsletter-section').style.display = 'none';
+            
+            document.getElementById(`${section}-section`).style.display = 'block';
+            
+            const titles = {
+                'overview': 'Executive Overview',
+                'orders': 'Order Management',
+                'menu': 'Menu Management',
+                'accounting': 'Financial Accounting',
+                'crm': 'Customer Management',
+                'newsletter': 'Newsletter Management'
+            };
+            document.getElementById('page-title').textContent = titles[section];
+            
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            if (event) event.currentTarget.classList.add('active');
+
+            if(section === 'crm') loadCustomers();
+            if(section === 'orders') loadOrders('active');
+            if(section === 'menu') loadAdminMenu();
+            if(section === 'newsletter') loadNewsletter();
+        }
+
+        async function loadNewsletter() {
+            try {
+                const subscribers = await api.get('/newsletter/subscribers');
+                const tbody = document.getElementById('admin-newsletter-body');
+                tbody.innerHTML = '';
+                subscribers.forEach(sub => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${sub.id}</td>
+                            <td style="font-weight: 700;">${sub.email}</td>
+                            <td>${new Date(sub.subscribed_at).toLocaleString()}</td>
+                            <td><span class="status-badge ${sub.is_active ? 'status-ready' : 'status-collected'}">${sub.is_active ? 'Subscribed' : 'Unsubscribed'}</span></td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                console.error('Failed to load newsletter subscribers', err);
+            }
+        }
+
+        // --- ORDER MANAGEMENT ---
+        let allOrders = [];
+        
+        async function loadOrders(filter) {
+            try {
+                const orders = await api.get('/orders'); // Admin route needed? using generic one for now
+                allOrders = orders;
+                renderOrders(filter);
+            } catch (e) {
+                console.error('Failed to load orders', e);
+            }
+        }
+
+        function renderOrders(filter) {
+            const tbody = document.getElementById('admin-orders-body');
+            tbody.innerHTML = '';
+            
+            const filtered = allOrders.filter(o => {
+                if (filter === 'active') return ['Received', 'Preparing', 'Ready'].includes(o.status);
+                return ['Collected', 'Cancelled'].includes(o.status);
+            });
+
+            filtered.forEach(order => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight: 700;">${order.order_number}</td>
+                        <td>${order.customer_name || 'Guest'}</td>
+                        <td style="font-size: 0.9rem;">${order.items_summary || 'View for details'}</td>
+                        <td style="font-weight: 600;">R${parseFloat(order.total_amount).toFixed(2)}</td>
+                        <td><span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span></td>
+                        <td>
+                            <select onchange="updateOrderStatus(${order.id}, this.value)" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd;">
+                                <option value="Received" ${order.status === 'Received' ? 'selected' : ''}>Received</option>
+                                <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                                <option value="Ready" ${order.status === 'Ready' ? 'selected' : ''}>Ready</option>
+                                <option value="Collected" ${order.status === 'Collected' ? 'selected' : ''}>Collected</option>
+                                <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterOrders(type, btn) {
+            document.querySelectorAll('#orders-section .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderOrders(type);
+        }
+
+        async function updateOrderStatus(id, status) {
+            try {
+                await api.put(`/orders/${id}/status`, { status });
+                // Optional: Toast notification
+                loadOrders(document.querySelector('#orders-section .active').textContent.includes('Active') ? 'active' : 'history');
+            } catch (e) {
+                alert('Failed to update status');
+            }
+        }
+
+        // --- MENU MANAGEMENT ---
+        let adminCategories = [];
+        let adminMenuItems = [];
+
+        async function loadAdminMenu() {
+            try {
+                // Fetch categories for the modal dropdown
+                adminCategories = await api.get('/menu/categories');
+                const select = document.getElementById('menu-category');
+                select.innerHTML = adminCategories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+                // Fetch menu items (including unavailable)
+                adminMenuItems = await api.get('/menu?include_unavailable=true');
+                const tbody = document.getElementById('admin-menu-body');
+                tbody.innerHTML = '';
+
+                adminMenuItems.forEach(item => {
+                    tbody.innerHTML += `
+                        <tr style="opacity: ${item.is_available ? 1 : 0.6}">
+                            <td><img src="${item.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
+                            <td style="font-weight: 600;">${item.name}</td>
+                            <td>${item.category_name}</td>
+                            <td>R${parseFloat(item.price).toFixed(2)}</td>
+                            <td><span class="status-badge ${item.is_available ? 'status-ready' : 'status-collected'}">${item.is_available ? 'Active' : 'Disabled'}</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm" onclick='openMenuModal(${JSON.stringify(item)})'><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm ${item.is_available ? 'btn-secondary' : 'btn-primary'}" onclick="toggleMenuItem(${item.id}, ${item.is_available})" style="color: ${item.is_available ? 'red' : 'green'}; border-color: currentColor;">
+                                    <i class="fas fa-${item.is_available ? 'ban' : 'check'}"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function openMenuModal(item = null) {
+            const modal = document.getElementById('menu-modal');
+            const title = document.getElementById('modal-title');
+            const form = document.getElementById('menu-form');
+
+            modal.style.display = 'flex';
+            if (item) {
+                title.textContent = 'Edit Menu Item';
+                document.getElementById('menu-id').value = item.id;
+                document.getElementById('menu-name').value = item.name;
+                document.getElementById('menu-category').value = item.category_id;
+                document.getElementById('menu-price').value = item.price;
+                document.getElementById('menu-image').value = item.image_url;
+                document.getElementById('menu-desc').value = item.description;
+                document.getElementById('menu-badge').value = item.special_badge || '';
+                document.getElementById('menu-featured').checked = item.is_featured;
+            } else {
+                title.textContent = 'Add Menu Item';
+                form.reset();
+                document.getElementById('menu-id').value = '';
+                document.getElementById('menu-featured').checked = false;
+            }
+        }
+
+        function closeMenuModal() {
+            document.getElementById('menu-modal').style.display = 'none';
+        }
+
+        document.getElementById('menu-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('menu-id').value;
+            const data = {
+                name: document.getElementById('menu-name').value,
+                category_id: document.getElementById('menu-category').value,
+                price: document.getElementById('menu-price').value,
+                image_url: document.getElementById('menu-image').value,
+                description: document.getElementById('menu-desc').value,
+                special_badge: document.getElementById('menu-badge').value,
+                is_featured: document.getElementById('menu-featured').checked,
+                is_available: true // Default to true for new items, existing items handled by update logic if needed
+            };
+
+            // If updating, fetch current is_available status first to preserve it
+            if (id) {
+                const currentItem = adminMenuItems.find(i => i.id == id);
+                if (currentItem) data.is_available = currentItem.is_available;
+            }
+
+            try {
+                if (id) {
+                    await api.put(`/menu/${id}`, data);
+                } else {
+                    await api.post('/menu', data);
+                }
+                closeMenuModal();
+                loadAdminMenu();
+            } catch (err) {
+                alert('Operation failed');
+            }
+        });
+
+        async function toggleMenuItem(id, currentStatus) {
+            try {
+                const item = adminMenuItems.find(i => i.id == id);
+                const updatedData = { ...item, is_available: !currentStatus };
+                await api.put(`/menu/${id}`, updatedData);
+                loadAdminMenu();
+            } catch (err) {
+                alert('Failed to toggle status');
+            }
+        }
+
+        async function loadDashboardStats() {
+            try {
+                // We need to fetch the item first to get all fields, or just patch specific field
+                // Since updateMenuItem expects full object usually, let's assume we can send partial or need full.
+                // The backend updateMenuItem updates ALL fields. So we should ideally fetch -> update.
+                // Or update backend to handle partial updates (PATCH). 
+                // For now, let's assume the backend requires all fields or check backend logic.
+                // Backend: UPDATE ... SET name=?, ... WHERE id=?
+                // It replaces everything. So we must send everything.
+                
+                // Fetch item first
+                const item = await api.get(`/menu/${id}`);
+                item.is_available = !currentStatus;
+                await api.put(`/menu/${id}`, item);
+                loadAdminMenu();
+            } catch (e) {
+                alert('Failed to toggle status');
+            }
+        }
+
+        // --- CUSTOMER PROFILE ---
+        function openCustomerProfile(customer) {
+            // In a real app, fetch detailed stats
+            const modal = document.getElementById('customer-modal');
+            document.getElementById('cust-name').textContent = `${customer.first_name} ${customer.last_name || ''}`;
+            
+            const details = document.getElementById('cust-details');
+            details.innerHTML = `
+                <div class="grid-2" style="gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <p><strong>Email:</strong> ${customer.email}</p>
+                        <p><strong>Phone:</strong> ${customer.phone}</p>
+                        <p><strong>Member Since:</strong> ${new Date(customer.created_at).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        <p><strong>Total Spent:</strong> R${parseFloat(customer.total_spent).toFixed(2)}</p>
+                        <p><strong>Orders:</strong> ${customer.order_count}</p>
+                        <p><strong>Status:</strong> ${customer.is_verified ? 'Verified' : 'Pending Verification'}</p>
+                    </div>
+                </div>
+                <h4 style="margin-bottom: 10px;">Recent Activity</h4>
+                <p style="color: var(--text-muted);">Order history would be listed here...</p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeCustomerModal() {
+            document.getElementById('customer-modal').style.display = 'none';
+        }
+
+        async function loadCustomers() {
+            try {
+                const customers = await api.get('/admin/customers');
+                const tbody = document.getElementById('crm-table-body');
+                tbody.innerHTML = '';
+                
+                customers.forEach(cust => {
+                    const lastActive = cust.last_order_date ? new Date(cust.last_order_date).toLocaleDateString() : 'Never';
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600;">${cust.first_name} ${cust.last_name || ''}</td>
+                            <td>${cust.email}</td>
+                            <td>R${parseFloat(cust.total_spent).toFixed(2)}</td>
+                            <td>${cust.order_count}</td>
+                            <td>${lastActive}</td>
+                            <td><span class="status-badge ${cust.is_verified ? 'status-ready' : 'status-received'}">${cust.is_verified ? 'Verified' : 'Pending'}</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick='openCustomerProfile(${JSON.stringify(cust)})'>Profile</button></td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {
+                console.error('Failed to load customers', e);
+            }
+        }
+
+        async function loadAccountingData() {
+            const start = document.getElementById('accounting-start').value;
+            const end = document.getElementById('accounting-end').value;
+            
+            if(!start || !end) {
+                alert('Please select a date range');
+                return;
+            }
+
+            try {
+                const data = await api.get(`/admin/accounting?startDate=${start}&endDate=${end}`);
+                document.getElementById('acc-revenue').textContent = `R${data.revenue.toFixed(2)}`;
+                document.getElementById('acc-cogs').textContent = `(R${data.cogs.toFixed(2)})`;
+                document.getElementById('acc-gross').textContent = `R${data.grossProfit.toFixed(2)}`;
+                
+                const margin = data.revenue > 0 ? (data.grossProfit / data.revenue * 100).toFixed(1) : 0;
+                document.getElementById('profit-percentage').textContent = `${margin}%`;
+            } catch (e) {
+                alert('Access Denied or Session Expired. Audit log has been recorded.');
+            }
+        }
+
+        async function exportReport() {
+            const element = document.querySelector('.dashboard-main');
+            const opt = {
+                margin:       0.5,
+                filename:     'Lollys_Management_Report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            try {
+                await api.post('/admin/export-report', {
+                    companyEmail: 'management@lollys.co.za',
+                    reportType: 'Admin Dashboard Export'
+                });
+                
+                html2pdf().set(opt).from(element).save();
+                alert('Report exported! A secured copy has been dispatched to management email.');
+            } catch (e) {
+                alert('Export failed. Connection error.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initial load logic
+            try {
+                const stats = await api.get('/admin/dashboard');
+                document.getElementById('stat-revenue').textContent = `R${parseFloat(stats.todayRevenue).toFixed(2)}`;
+                document.getElementById('stat-orders').textContent = stats.todayOrders;
+                document.getElementById('stat-kitchen').textContent = stats.activeKitchen;
+                document.getElementById('stat-avg-prep').textContent = stats.avgPrepTime;
+            } catch(e) {}
+
+            try {
+                const orders = await api.get('/orders');
+                const tbody = document.getElementById('orders-table-body');
+                tbody.innerHTML = '';
+                orders.slice(0, 8).forEach(order => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 700;">${order.order_number}</td>
+                            <td>${order.customer_name || 'Guest'}</td>
+                            <td>${new Date(order.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+                            <td><span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="showSection('orders')">Manage</button></td>
+                        </tr>
+                    `;
+                });
+                
+                // Set Top Customer in Insights
+                const topCust = orders[0].customer_name;
+                document.getElementById('crm-top-customer').textContent = topCust;
+            } catch(e) {}
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+                <a href="https://www.ubereats.com/za/store/lollys-food-joint-durban/4nR5-RS1VHm8bNta3-oQ2w?msockid=00eeb1c6ac7460a018eca717adbd61f1" target="_blank" class="uber-eats-badge">
+                    <i class="fas fa-motorcycle"></i> Available on Uber Eats
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count">0</span></a></li>
+                <li id="auth-btn"><a href="login.html" class="btn btn-login">Login</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="menu-hero" style="padding: 220px 0 100px; background: linear-gradient(135deg, #F8FAFC, #EFF6FF); text-align: center; border-bottom: 1px solid #E2E8F0; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.4; pointer-events: none;">
+            <div style="position: absolute; top: 10%; left: 5%; width: 200px; height: 200px; background: var(--accent-orange); filter: blur(100px); border-radius: 50%;"></div>
+            <div style="position: absolute; bottom: 10%; right: 5%; width: 300px; height: 300px; background: var(--accent-yellow); filter: blur(120px); border-radius: 50%;"></div>
+        </div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 16px; display: block;">Our Full Menu</span>
+            <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 24px; font-weight: 900; line-height: 1.1; letter-spacing: -2px;">Durban <span style="color: var(--accent-orange);">Curated</span> Feast</h1>
+            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 700px; margin: 0 auto; line-height: 1.6;">Experience the authentic soul of Durban with our hand-crafted selection of premium traditional meals.</p>
+        </div>
+    </section>
+
+    <section class="menu-container container" style="padding: 80px 32px;">
+        <div class="menu-controls" style="margin-bottom: 80px; position: sticky; top: 100px; z-index: 100;">
+            <div class="glass-panel" style="padding: 20px; border-radius: 100px; display: flex; align-items: center; gap: 20px; box-shadow: var(--shadow-lg);">
+                <div style="position: relative; flex: 1;">
+                    <i class="fas fa-search" style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;"></i>
+                    <input type="text" id="menu-search" placeholder="Search our flavors..." 
+                           style="width: 100%; padding: 14px 24px 14px 60px; border-radius: 50px; border: 1px solid #E2E8F0; font-size: 1rem; background: white; transition: var(--transition-smooth);">
+                </div>
+                <div id="category-filters" style="display: flex; gap: 12px; overflow-x: auto; padding: 4px; white-space: nowrap; scrollbar-width: none;">
+                    <button class="btn btn-secondary active" data-filter="all" style="border-radius: 50px; padding: 12px 28px; font-size: 0.9rem;">All Items</button>
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-content">
+            <!-- Grid or Categories will be loaded here -->
+            <div id="menu-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px;">
+                <div class="shimmer" style="height: 450px; border-radius: 24px;"></div>
+                <div class="shimmer" style="height: 450px; border-radius: 24px;"></div>
+                <div class="shimmer" style="height: 450px; border-radius: 24px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2026 Lolly's Food Joint. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

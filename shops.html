@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Shops | Lolly's Food Joint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fade-in">
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <img src="Images/lollys logo.jpg" alt="Lolly's Logo">
+                <h1>Lolly's Food Joint</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="shops.html" class="active">Shops</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="container" style="padding: 180px 32px 100px;">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <span style="color: var(--accent-orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 16px;">Our Locations</span>
+            <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 24px; letter-spacing: -1.5px;">Visit <span style="color: var(--accent-orange);">Our Shops</span></h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">We're expanding across the globe to bring you the authentic taste of Durban.</p>
+        </div>
+
+        <div id="shops-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px;">
+            <!-- Shops loaded here -->
+        </div>
+        
+        <!-- Coming Soon Global -->
+        <div class="glass-panel" style="margin-top: 80px; padding: 60px; text-align: center; background: linear-gradient(135deg, #F8FAFC, #EFF6FF);">
+            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 16px;">Coming Soon to London & Dubai</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 32px;">Our international expansion is in progress. Verified profiles will get exclusive access to our global branch launches!</p>
+            <div style="display: flex; justify-content: center; gap: 20px; font-size: 2rem; color: var(--accent-orange); opacity: 0.5;">
+                <i class="fas fa-plane"></i>
+                <i class="fas fa-globe-africa"></i>
+                <i class="fas fa-utensils"></i>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const shops = await api.get('/customer/shops');
+                const grid = document.getElementById('shops-grid');
+                grid.innerHTML = '';
+
+                shops.forEach(shop => {
+                    grid.innerHTML += `
+                        <div class="card glass-panel" style="padding: 40px; border-top: 6px solid var(--accent-orange);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h3 style="font-size: 1.4rem; font-weight: 900; color: var(--text-dark);">${shop.name}</h3>
+                                <span class="status-badge status-ready" style="font-size: 0.7rem;">Open</span>
+                            </div>
+                            <p style="color: var(--text-muted); margin-bottom: 12px;"><i class="fas fa-map-marker-alt" style="color: var(--accent-orange); margin-right: 10px;"></i> ${shop.address}, ${shop.city}</p>
+                            <p style="color: var(--text-muted); margin-bottom: 24px;"><i class="fas fa-phone" style="color: var(--accent-orange); margin-right: 10px;"></i> ${shop.phone}</p>
+                            <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='menu.html'">Order from this Branch</button>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error('Failed to load shops', err);
+            }
+        });
+    </script>
+</body>
+</html>
